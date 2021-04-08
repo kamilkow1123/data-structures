@@ -8,6 +8,11 @@ public:
     ~Array();
     void addElement(int data);
     void deleteElement(int data);
-    int findElement(int data);
+    void deleteElementByIndex(int index);
+    int findIndex(int data);
+    int findElement(int index);
     void print();
+    int getSize();
+    void setSize(int newSize);
+    void swapElements(int index1, int index2);
 };
