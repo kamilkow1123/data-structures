@@ -29,11 +29,10 @@ private:
 public:
     RBTree();
     ~RBTree();
+    RBNode *getRoot();
     void insertElement(int data);
-    RBNode* insertNode(RBNode *root, RBNode *newNode);
     void rotateRight(RBNode *A);
     void rotateLeft(RBNode *A);
     void print();
     void printRB(string sp, string sn, RBNode *root);
-    void rebuildTree(RBNode *newNode);
 };
