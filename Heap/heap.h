@@ -13,7 +13,8 @@ public:
     Heap(); //constructor
     void insert(int data); //insert key into the heap
     int extractMax(); //delete the max element - root
+    void deleteElement(int data); //delete element by data
     void heapify(int i); //recursively heapify (restore the properties of heap) a sub-tree
     void printHeap(); //print the heap
-    void findNode(); //
+    void findElement(int data); //find element in the heap
 };

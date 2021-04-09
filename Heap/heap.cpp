@@ -6,7 +6,7 @@ using namespace std;
 Heap::Heap(){}
 
 void Heap::insert(int data){
-    heap.addElement(data); //adding new element at the end of the heap
+    heap.pushBack(data); //adding new element at the end of the heap
     int i = heap.getSize() - 1;
 
     while(i != 0 && heap.findElement(parent(i)) < heap.findElement(i)){ //comparing the element with its parent
@@ -33,6 +33,24 @@ int Heap::extractMax(){
     }
 }
 
+void Heap::deleteElement(int data){
+    int i;
+    for (i = 0; i < heap.getSize(); i++)
+    {
+        if (data == heap.findElement(i))
+            break;
+    }
+    
+    if(i == heap.getSize()) return;
+
+    heap.swapElements(i, heap.getSize()-1);
+    heap.deleteElementByIndex(heap.getSize()-1);
+    for (int i = (heap.getSize())/2-1; i >= 0; i--)
+    {
+        heapify(i);
+    }
+}
+
 void Heap::heapify(int i){
     int l = left(i);
     int r = right(i);
@@ -53,6 +71,18 @@ void Heap::heapify(int i){
     }
 }
 
+void Heap::findElement(int data){
+    for(int i = 0; i < heap.getSize(); i++)
+    {
+        if(heap.findElement(i) == data)
+        {
+            cout<<"Found "<<data<<" in the heap"<<endl;
+            return;
+        }
+    }
+    cout<<data<<" is not in the heap"<<endl;
+}
+
 void Heap::printHeap(){
     heap.print();
 }
@@ -69,7 +99,10 @@ void Heap::printHeap(){
 //     heap.insert(86);
 
 //     heap.printHeap();
-//     heap.extractMax();
+//     heap.deleteElement(90);
+//     // heap.extractMax();
+//     // heap.printHeap();
+//     // heap.findElement(866);
 //     heap.printHeap();
 //     return 0;
 // }
