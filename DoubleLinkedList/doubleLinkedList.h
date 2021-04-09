@@ -1,16 +1,33 @@
+struct Node{
+    int data;
+    Node *prev;
+    Node *next;
+
+    Node(int data){
+        this->data = data;
+        this->prev = nullptr;
+        this->next = nullptr;
+    }
+
+    void print(){
+        std::cout<<data<<" ";
+    }
+};
+
 class DoubleLinkedList{
 private:
-    int data;
-    DoubleLinkedList *prev;
-    DoubleLinkedList *next;
+    Node *head;
+    Node *tail;
 
 public:
-    explicit DoubleLinkedList(int data);
-    static void push_back(DoubleLinkedList **head, int data);
-    static void push_front(DoubleLinkedList **head, int data);
-    static void pop_back(DoubleLinkedList **head);
-    static void pop_front(DoubleLinkedList **head);
-    static void printList(DoubleLinkedList *head);
-    static void push_after(DoubleLinkedList **head, DoubleLinkedList *prevNode, int data);
-    static DoubleLinkedList *findNode(DoubleLinkedList **head, int pos);
+    DoubleLinkedList();
+    void push_back(int data);
+    void push_front(int data);
+    void push_after(Node *prevNode, int data);
+    void pop_back();
+    void pop_front();
+    void pop_node(Node *nodeToDelete);
+    void printList();
+    Node *findNode(int data); //find node by its data
+    bool isEmpty();
 };

@@ -2,95 +2,91 @@
 #include "doubleLinkedList.h"
 using namespace std;
 
-DoubleLinkedList::DoubleLinkedList(int data) {
-    this->data = data;
-    next = nullptr;
-    prev = nullptr;
+DoubleLinkedList::DoubleLinkedList() {
+    this->head = nullptr;
+    this->tail = nullptr;
 }
 
-void DoubleLinkedList::push_back(DoubleLinkedList **head, int data) { //adding node at the end
-    auto *newNode = new DoubleLinkedList(data);
-    DoubleLinkedList *temp = (*head);
-    DoubleLinkedList *temp2 = nullptr;
+void DoubleLinkedList::push_back(int data) { //adding node at the end
+    Node *newNode = new Node(data);
 
-    while (temp != nullptr)
+    if(head == nullptr)
     {
-        temp2 = temp;
-        temp = temp->next;
-    }
-
-    if ((*head) == nullptr)
-    {
-        (*head) = newNode;
+        head = tail = newNode;
     }
     else
     {
-        temp2->next = newNode;
-        newNode->prev = temp2;
-        newNode->next = nullptr;
+        tail->next = newNode;
+        newNode->prev = tail;
+        tail = newNode;
     }
 }
 
-void DoubleLinkedList::push_front(DoubleLinkedList **head, int data) { //adding node at the beginning
-    auto *newNode = new DoubleLinkedList(data);
-    newNode->prev = nullptr;
-    newNode->next = (*head);
-    if ((*head) != nullptr)
-        (*head)->prev = newNode;
-    (*head) = newNode;
+void DoubleLinkedList::push_front(int data) { //adding node at the beginning
+    Node *newNode = new Node(data);
+
+    if(head == nullptr)
+    {
+        head = tail = newNode;
+    }
+    else
+    {
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+    }
 }
 
-void DoubleLinkedList::pop_back(DoubleLinkedList **head) { //deleting node from the end
-    DoubleLinkedList *temp = (*head);
+void DoubleLinkedList::pop_node(Node *nodeToDelete){
+    if(nodeToDelete == nullptr) return;
+    if(nodeToDelete->prev) nodeToDelete->prev->next = nodeToDelete->next;
+    else head = nodeToDelete->next;
 
-    if ((*head) == nullptr)
-    {
-        return;
-    }
+    if(nodeToDelete->next) nodeToDelete->next->prev = nodeToDelete->prev;
+    else tail = nodeToDelete->prev;
 
-    if ((*head)->next == nullptr)
-    {
-        *head = nullptr;
-        return;
-    }
+    free(nodeToDelete);
+}
 
-    while (temp->next->next != nullptr)
+void DoubleLinkedList::pop_back() { //deleting node from the end
+    if(tail == nullptr) return;
+    pop_node(tail);
+    // if(tail == nullptr) return;
+    // Node *temp = tail;
+    // tail->prev->next = nullptr;
+    // tail = tail->prev;
+    // free(temp);
+}
+
+void DoubleLinkedList::pop_front() { //deleting node from the beginning
+    if(head == nullptr) return;
+    pop_node(head);
+    // if(head == nullptr) return;
+    // Node *temp = head;
+    // head->next->prev = nullptr;
+    // head = head->next;
+    // free(temp);
+}
+
+void DoubleLinkedList::printList() { //print all the nodes
+    Node *temp = head;
+    if(temp == nullptr) {cout<<"List is empty"<<endl; return;}
+    while (temp != nullptr)
     {
+        temp->print();
         temp = temp->next;
-    }
-    free(temp->next);
-    temp->next = nullptr;
-}
-
-void DoubleLinkedList::pop_front(DoubleLinkedList **head) { //deleting node from the beginning
-    DoubleLinkedList *temp = nullptr;
-
-    if (*head != nullptr)
-    {
-        temp = (*head)->next;
-        free(*head);
-        *head = temp;
-        (*head)->prev = nullptr;
-    }
-}
-
-void DoubleLinkedList::printList(DoubleLinkedList *head) { //print all the nodes
-    while (head != nullptr)
-    {
-        cout<<head->data<<" ";
-        head = head->next;
     }
     cout<<endl;
 }
 
-void DoubleLinkedList::push_after(DoubleLinkedList **head, DoubleLinkedList *prevNode, int data) { //add node after specific node
+void DoubleLinkedList::push_after(Node *prevNode, int data) { //add node after specific node
     if (prevNode == nullptr)
     {
-        push_front(head, data);
+        push_front(data);
         return;
     }
 
-    auto *newNode = new DoubleLinkedList(data);
+    Node *newNode = new Node(data);
 
     newNode->next = prevNode->next;
     newNode->prev = prevNode;
@@ -102,8 +98,8 @@ void DoubleLinkedList::push_after(DoubleLinkedList **head, DoubleLinkedList *pre
     }
 }
 
-DoubleLinkedList *DoubleLinkedList::findNode(DoubleLinkedList **head, int data) { //find the node by its data and return it
-    DoubleLinkedList *temp = (*head);
+Node *DoubleLinkedList::findNode(int data) { //find the node by its data and return it
+    Node *temp = head;
 
     while(temp != nullptr){
         if(temp->data == data){
@@ -111,29 +107,35 @@ DoubleLinkedList *DoubleLinkedList::findNode(DoubleLinkedList **head, int data) 
         }
         temp = temp->next;
     }
-
     return nullptr;
 }
 
-int main() {
-    auto *head = new DoubleLinkedList(5);
-    DoubleLinkedList::push_back(&head, 6);
-    DoubleLinkedList::push_back(&head, 7);
-    DoubleLinkedList::push_back(&head, 8);
-    DoubleLinkedList::push_back(&head, 9);
-    DoubleLinkedList::push_back(&head, 10);
-
-    DoubleLinkedList::printList(head);
-
-    DoubleLinkedList::pop_back(&head);
-    DoubleLinkedList::pop_back(&head);
-    DoubleLinkedList::pop_front(&head);
-
-    DoubleLinkedList::printList(head);
-
-    DoubleLinkedList::push_after(&head, DoubleLinkedList::findNode(&head, 7),-3);
-
-    DoubleLinkedList::printList(head);
-
-    return 0;
+bool DoubleLinkedList::isEmpty(){
+    return head == nullptr;
 }
+
+// int main() {
+//     DoubleLinkedList list = DoubleLinkedList();
+
+//     list.push_back(5);
+//     list.push_back(8);
+//     list.push_back(4);
+//     list.push_front(2);
+//     list.push_front(3);
+//     list.push_front(1);
+//     list.push_after(list.findNode(44),17);
+
+//     list.printList();
+//     // list.pop_node(list.findNode(17));
+//     // list.pop_node(list.findNode(45));
+//     list.pop_back();
+//     list.pop_front();
+//     list.pop_front();
+//     list.pop_front();
+//     list.pop_back();
+//     list.pop_back();
+//     list.pop_back();
+
+//     list.printList();
+//     return 0;
+// }
