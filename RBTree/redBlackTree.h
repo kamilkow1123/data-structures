@@ -33,6 +33,10 @@ public:
     void insertElement(int data);
     void rotateRight(RBNode *A);
     void rotateLeft(RBNode *A);
+    void deleteNode(RBNode *v);
+    void deleteByData(int data);
+    RBNode *search(int data);
+    void fixDoubleBlack(RBNode *x);
     void print();
     void printRB(string sp, string sn, RBNode *root);
 };
