@@ -20,28 +20,50 @@ RBNode *RBTree::getRoot()
     return this->root;
 }
 
-// void RBTree::insertElement(int data){
-//     RBNode *newNode = new RBNode(data);
-//     root = insertNode(root, newNode);
-//     rebuildTree(newNode);
-// }
+void RBTree::rotateRight(RBNode *A){
+    RBNode* B = A->left;
+    RBNode* temp = A->parent;
 
-// RBNode* RBTree::insertNode(RBNode *root, RBNode *newNode){ //recursively find a place for new node and insert it
-//     if(root == nullptr){ 
-//         return newNode;
-//     }
-//     else if(newNode->data <= root->data){
-//         RBNode *leftChild = insertNode(root->left, newNode);
-//         root->left = leftChild;
-//         leftChild->parent = root;
-//     }
-//     else{
-//         RBNode *rightChild = insertNode(root->right, newNode);
-//         root->right = rightChild;
-//         rightChild->parent = root;
-//     }
-//     return root;
-// }
+    if(B)
+    {
+        A->left = B->right;
+        if(A->left) A->left->parent = A;
+
+        B->right = A;
+        B->parent = temp;
+        A->parent = B;
+
+        if(temp)
+        {
+            if( temp->left == A ) temp->left = B;
+            else temp->right = B;
+        }
+        else root = B;
+    }
+}
+
+void RBTree::rotateLeft(RBNode *A)
+{
+    RBNode* B = A->right;
+    RBNode* temp = A->parent;
+
+    if(B)
+    {
+        A->right = B->left;
+        if(A->right) A->right->parent = A;
+
+        B->left = A;
+        B->parent = temp;
+        A->parent = B;
+
+        if(temp)
+        {
+            if( temp->left == A ) temp->left = B;
+            else temp->right = B;
+        }
+        else root = B;
+    }
+}
 
 RBNode* insertBST(RBNode *root, RBNode *newNode){ //recursively find a place for new node and insert it
     if(root == nullptr){ 
@@ -65,39 +87,45 @@ void RBTree::insertElement(int data){
     root = insertBST(root, newNode);
     RBNode *uncle = nullptr;
 
-    while((newNode->parent->color == RED)&&(newNode != root)){
+    while((newNode != root)&&(newNode->color != BLACK)&&(newNode->parent->color == RED)){
 
         if(newNode->parent == newNode->parent->parent->left){
             uncle = newNode->parent->parent->right;
-            if(uncle->color == RED){
+            if(uncle != nullptr && uncle->color == RED){
+                newNode->parent->parent->color = RED;
                 newNode->parent->color = BLACK;
                 uncle->color = BLACK;
-                newNode->parent->parent->color = RED;
                 newNode = newNode->parent->parent;
             }
-            if(newNode == newNode->parent->right){
+            else{
+                if(newNode == newNode->parent->right){
+                    rotateLeft(newNode->parent);
+                    newNode = newNode->parent;
+                }
+                rotateRight(newNode->parent->parent);
+                newNode->parent->color = BLACK;
+                newNode->parent->parent->color = RED;
                 newNode = newNode->parent;
-                rotateLeft(newNode);
             }
-            newNode->parent->color = BLACK;
-            newNode->parent->parent->color = RED;
-            rotateRight(newNode->parent->parent);
         }
         else{
             uncle = newNode->parent->parent->left;
-            if(uncle->color == RED){
+            if(uncle != nullptr && uncle->color == RED){
+                newNode->parent->parent->color = RED;
                 newNode->parent->color = BLACK;
                 uncle->color = BLACK;
-                newNode->parent->parent->color = RED;
                 newNode = newNode->parent->parent;
             }
-            if(newNode == newNode->parent->left){
+            else {
+                 if(newNode == newNode->parent->left){
+                    rotateRight(newNode->parent);
+                    newNode = newNode->parent;
+                }
+                rotateLeft(newNode->parent->parent);
+                newNode->parent->color = BLACK;
+                newNode->parent->parent->color = RED;
                 newNode = newNode->parent;
-                rotateRight(newNode);
             }
-            newNode->parent->color = BLACK;
-            newNode->parent->parent->color = RED;
-            rotateLeft(newNode->parent->parent);
         }
     }
     root->color = BLACK;
@@ -155,51 +183,6 @@ void RBTree::insertElement(int data){
 //     root->color = BLACK;
 // }
 
-void RBTree::rotateRight(RBNode *A){
-    RBNode* B = A->left;
-    RBNode* temp = A->parent;
-
-    if(B)
-    {
-        A->left = B->right;
-        if(A->left) A->left->parent = A;
-
-        B->right = A;
-        B->parent = temp;
-        A->parent = B;
-
-        if(temp)
-        {
-            if( temp->left == A ) temp->left = B;
-            else temp->right = B;
-        }
-        else root = B;
-    }
-}
-
-void RBTree::rotateLeft(RBNode *A)
-{
-    RBNode* B = A->right;
-    RBNode* temp = A->parent;
-
-    if(B)
-    {
-        A->right = B->left;
-        if(A->right) A->right->parent = A;
-
-        B->left = A;
-        B->parent = temp;
-        A->parent = B;
-
-        if(temp)
-        {
-            if( temp->left == A ) temp->left = B;
-            else temp->right = B;
-        }
-        else root = B;
-    }
-}
-
 void RBTree::print(){
     cout<<endl;
     printRB("","",root);
@@ -227,7 +210,15 @@ void RBTree::printRB(string sp, string sn, RBNode * root){ //PRINTING RBT as a t
 int main(){
     RBTree tree = RBTree();
 
+    tree.insertElement(11);
+    tree.insertElement(2);
+    tree.insertElement(14);
+    tree.insertElement(1);
+    tree.insertElement(15);
+    tree.insertElement(7);
     tree.insertElement(5);
+    tree.insertElement(8);
+    tree.insertElement(13);
     
     tree.print();
 
