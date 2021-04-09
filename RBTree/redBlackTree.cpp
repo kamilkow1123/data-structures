@@ -85,7 +85,7 @@ RBNode* insertBST(RBNode *root, RBNode *newNode){ //recursively find a place for
 void RBTree::insertElement(int data){
     RBNode *newNode = new RBNode(data);
     root = insertBST(root, newNode);
-
+    
     RBNode *parent = nullptr;
     RBNode *uncle = nullptr;
     RBNode *grandparent = nullptr;
@@ -138,26 +138,28 @@ void RBTree::insertElement(int data){
     root->color = BLACK;
 }
 
-// find node that do not have a left child
-  // in the subtree of the given node
-RBNode *successor(RBNode *x) {
-    RBNode *temp = x;
+// find the successor of the given node
+RBNode *successor(RBNode *node) {
+    RBNode *temp = node;
  
-    while (temp->left != NULL)
+    while (temp->left != nullptr)
       temp = temp->left;
  
     return temp;
 }
 
-void swapValues(RBNode *u, RBNode *v) {
+//swap data in two given nodes
+void swapData(RBNode *node1, RBNode *node2) {
     int temp;
-    temp = u->data;
-    u->data = v->data;
-    v->data = temp;
+    temp = node1->data;
+    node1->data = node2->data;
+    node2->data = temp;
 }
 
-// check if node is left child of parent
-bool isOnLeft(RBNode *node) { return node == node->parent->left; }
+// check if given node is a left child
+bool isOnLeft(RBNode *node) { 
+    return node == node->parent->left; 
+}
 
 // returns pointer to sibling
 RBNode *getSibling(RBNode *node) {
@@ -177,97 +179,95 @@ bool hasRedChild(RBNode *node) {
 }
 
 // find node that replaces a deleted node in BST
-RBNode *BSTreplace(RBNode *x) {
-    // when node have 2 children
-    if (x->left != NULL && x->right != NULL)
-      return successor(x->right);
+RBNode *BSTreplace(RBNode *node) {
+    // when node has 2 children
+    if (node->left != NULL && node->right != NULL)
+      return successor(node->right);
  
-    // when leaf
-    if (x->left == NULL && x->right == NULL)
+    // when node is a leaf
+    if (node->left == NULL && node->right == NULL)
       return NULL;
  
-    // when single child
-    if (x->left != NULL)
-      return x->left;
+    // when node has a single child
+    if (node->left != NULL)
+      return node->left;
     else
-      return x->right;
+      return node->right;
 }
 
 // deletes the given node
-void RBTree::deleteNode(RBNode *v) {
-    RBNode *u = BSTreplace(v);
+void RBTree::deleteNode(RBNode *node) {
+    RBNode *temp = BSTreplace(node);
  
-    // True when u and v are both black
-    bool uvBlack = ((u == NULL || u->color == BLACK) && (v->color == BLACK));
-    RBNode *parent = v->parent;
+    // True when node and temp are both black
+    bool bothBlack = ((temp == nullptr || temp->color == BLACK) && (node->color == BLACK));
+    RBNode *parent = node->parent;
  
-    if (u == NULL) {
-      // u is NULL therefore v is leaf
-      if (v == root) {
-        // v is root, making root null
+    if (temp == nullptr) {
+      // temp is nullptr so node is leaf
+      if (node == root) {
+        // node is root, making root null
         root = NULL;
-      } else {
-        if (uvBlack) {
-          // u and v both black
-          // v is leaf, fix double black at v
-          fixDoubleBlack(v);
+      } 
+      else {
+        if (bothBlack) {
+          // node is a leaf, fix double black at node
+          fixDoubleBlack(node);
         } else {
-          // u or v is red
-          if (getSibling(v) != NULL)
-            // sibling is not null, make it red"
-            getSibling(v)->color = RED;
+          // temp or node is red
+          if (getSibling(node) != nullptr)
+            // sibling is not null, make it red
+            getSibling(node)->color = RED;
         }
  
-        // delete v from the tree
-        if (isOnLeft(v)) {
+        // delete node from the tree
+        if (isOnLeft(node)) {
           parent->left = NULL;
         } else {
           parent->right = NULL;
         }
       }
-      delete v;
+      delete node;
       return;
     }
  
-    if (v->left == NULL || v->right == NULL) {
-      // v has 1 child
-      if (v == root) {
-        // v is root, assign the value of u to v, and delete u
-        v->data = u->data;
-        v->left = v->right = NULL;
-        delete u;
+    if (node->left == NULL || node->right == NULL) {
+      // node has 1 child
+      if (node == root) {
+        // node is root, assign the value of temp to node, and delete temp
+        node->data = temp->data;
+        node->left = node->right = NULL;
+        delete temp;
       } else {
-        // Detach v from tree and move u up
-        if (isOnLeft(v)) {
-          parent->left = u;
+        // Detach node from tree and move temp up
+        if (isOnLeft(node)) {
+          parent->left = temp;
         } else {
-          parent->right = u;
+          parent->right = temp;
         }
-        delete v;
-        u->parent = parent;
-        if (uvBlack) {
-          // u and v both black, fix double black at u
-          fixDoubleBlack(u);
+        delete node;
+        temp->parent = parent;
+        if (bothBlack) {
+          // temp and node both black, fix double black at temp
+          fixDoubleBlack(temp);
         } else {
-          // u or v red, color u black
-          u->color = BLACK;
+          // temp or node red, color temp black
+          temp->color = BLACK;
         }
       }
       return;
     }
- 
-    // v has 2 children, swap values with successor and recurse
-    swapValues(u, v);
-    deleteNode(u);
+    // node has 2 children, swap values with successor and recurse
+    swapData(temp, node);
+    deleteNode(temp);
 }
  
-void RBTree::fixDoubleBlack(RBNode *x) {
-    if (x == root)
-      // Reached root
+void RBTree::fixDoubleBlack(RBNode *node) {
+    if (node == root) //Reached root
       return;
  
-    RBNode *sibling = getSibling(x);
-    RBNode *parent = x->parent;
+    RBNode *sibling = getSibling(node);
+    RBNode *parent = node->parent;
     if (sibling == NULL) {
       // No sibiling, double black pushed up
       fixDoubleBlack(parent);
@@ -283,7 +283,7 @@ void RBTree::fixDoubleBlack(RBNode *x) {
           // right case
           rotateLeft(parent);
         }
-        fixDoubleBlack(x);
+        fixDoubleBlack(node);
       } else {
         // Sibling black
         if (hasRedChild(sibling)) {
@@ -343,23 +343,22 @@ RBNode *RBTree::search(int data) {
           temp = temp->right;
       }
     }
-    return temp;
+    return temp;  
 }
 
-// utility function that deletes the node with given value
+//delete the node with given data
 void RBTree::deleteByData(int data) {
-    if (root == NULL)
-      // Tree is empty
-      return;
+    if (root == NULL) //tree is empty
+        return;
  
-    RBNode *v = search(data), *u;
+    RBNode *node = search(data);
  
-    if (v->data != data) {
-      cout << "No node found to delete with value:" << data << endl;
-      return;
+    if (node->data != data) {
+        cout << "There is no node with data: " << data << endl;
+        return;
     }
- 
-    deleteNode(v);
+
+    deleteNode(node);
 }
 
 void RBTree::print(){

@@ -10,10 +10,31 @@ Array::Array() {
 
 Array::~Array() = default;
 
-void Array::addElement(int data) {
+void Array::pushBack(int data) {
     size++;
     array = (int*)realloc(array, size*sizeof(int));
     array[size-1] = data;
+}
+
+void Array::pushFront(int data) {
+    size++;
+    array = (int*)realloc(array, size*sizeof(int));
+    for(int i = size; i>0; i--){
+        array[i] = array[i-1];
+    }
+    array[0] = data;
+}
+
+void Array::pushOnIndex(int data, int index) {
+    if(index<0 || index>size) return;
+
+    size++;
+    array = (int*)realloc(array, size*sizeof(int));
+    int i;
+    for(i = size; i>index; i--){
+        array[i] = array[i-1];
+    }
+    array[i] = data;
 }
 
 int Array::findIndex(int data) {
@@ -74,20 +95,22 @@ void Array::swapElements(int index1, int index2){
 
 // int main() {
 //     Array ar = Array();
-//     ar.addElement(1);
-//     ar.addElement(2);
-//     ar.addElement(3);
-//     ar.addElement(4);
-//     ar.addElement(5);
-//     ar.addElement(6);
+//     ar.pushBack(1);
+//     ar.pushBack(2);
+//     ar.pushBack(3);
+//     ar.pushBack(4);
+//     ar.pushFront(5);
+//     ar.pushFront(6);
+//     ar.pushFront(7);
+//     ar.pushOnIndex(10, 6);
 
 //     ar.print();
 
-//     ar.deleteElement(4);
+//     // ar.deleteElement(4);
 
-//     ar.print();
-//     cout<<ar.findElement(4)<<endl;
-//     cout<<ar.findIndex(6);
+//     // ar.print();
+//     // cout<<ar.findElement(4)<<endl;
+//     // cout<<ar.findIndex(6);
 
 //     return 0;
 // }

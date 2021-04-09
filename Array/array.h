@@ -6,7 +6,9 @@ private:
 public:
     Array();
     ~Array();
-    void addElement(int data);
+    void pushBack(int data);
+    void pushFront(int data);
+    void pushOnIndex(int data, int index);
     void deleteElement(int data);
     void deleteElementByIndex(int index);
     int findIndex(int data);
