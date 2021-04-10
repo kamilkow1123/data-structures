@@ -17,4 +17,5 @@ public:
     void heapify(int i); //recursively heapify (restore the properties of heap) a sub-tree
     void printHeap(); //print the heap
     void findElement(int data); //find element in the heap
+    int getSize();
 };
