@@ -30,13 +30,16 @@ public:
     RBTree();
     ~RBTree();
     RBNode *getRoot();
+    bool isEmpty();
     void insertElement(int data);
     void rotateRight(RBNode *A);
     void rotateLeft(RBNode *A);
     void deleteNode(RBNode *node);
     void deleteByData(int data);
+    void deleteTree(RBNode *root);
     RBNode *search(int data);
     void fixDoubleBlack(RBNode *node);
     void print();
     void printRB(string sp, string sn, RBNode *root);
+    void printInorder();
 };

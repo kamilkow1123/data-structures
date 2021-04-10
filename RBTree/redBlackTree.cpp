@@ -20,6 +20,19 @@ RBNode *RBTree::getRoot()
     return this->root;
 }
 
+bool RBTree::isEmpty(){
+    return root == nullptr;
+}
+
+void RBTree::deleteTree(RBNode *root){
+     if (root != nullptr)
+    {
+        deleteTree(root->right);
+        deleteTree(root->left);
+        delete root;
+    }
+}
+
 void RBTree::rotateRight(RBNode *A){
     RBNode* B = A->left;
     RBNode* temp = A->parent;
@@ -361,6 +374,19 @@ void RBTree::deleteByData(int data) {
     deleteNode(node);
 }
 
+void inorderHelper(RBNode *root){
+    if (root == nullptr)
+        return;
+
+    inorderHelper(root->left);
+    cout << root->data << " ";
+    inorderHelper(root->right);
+}
+
+void RBTree::printInorder(){
+    inorderHelper(root);
+}
+
 void RBTree::print(){
     cout<<endl;
     printRB("","",root);
@@ -385,22 +411,22 @@ void RBTree::printRB(string sp, string sn, RBNode * root){ //PRINTING RBT as a t
     }
 }
 
-int main(){
-    RBTree tree = RBTree();
+// int main(){
+//     RBTree tree = RBTree();
 
-    tree.insertElement(11);
-    tree.insertElement(2);
-    tree.insertElement(14);
-    tree.insertElement(1);
-    tree.insertElement(15);
-    // tree.insertElement(7);
-    // tree.insertElement(5);
-    // tree.insertElement(8);
-    // tree.insertElement(4);
-    tree.print();
-    tree.deleteByData(15);
-    tree.deleteByData(14);
-    tree.print();
+//     tree.insertElement(11);
+//     tree.insertElement(2);
+//     tree.insertElement(14);
+//     tree.insertElement(1);
+//     tree.insertElement(15);
+//     // tree.insertElement(7);
+//     // tree.insertElement(5);
+//     // tree.insertElement(8);
+//     // tree.insertElement(4);
+//     tree.print();
+//     tree.deleteByData(15);
+//     tree.deleteByData(14);
+//     tree.print();
 
-    return 0;
-}
+//     return 0;
+// }
