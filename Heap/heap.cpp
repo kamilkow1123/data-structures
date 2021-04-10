@@ -5,6 +5,10 @@ using namespace std;
 
 Heap::Heap(){}
 
+int Heap::getSize(){
+    return heap.getSize();
+}
+
 void Heap::insert(int data){
     heap.pushBack(data); //adding new element at the end of the heap
     int i = heap.getSize() - 1;
