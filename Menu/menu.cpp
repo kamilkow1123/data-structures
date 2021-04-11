@@ -325,7 +325,7 @@ void experimentMenu(){
 
     switch(choice){
         case 1: 
-            // arrayExperimentMenu(&array);//TODO in fillUp
+            arrayExperiment(&arr);
             break;
         case 2: 
             // listExperimentMenu(&list);//TODO in fillUp
