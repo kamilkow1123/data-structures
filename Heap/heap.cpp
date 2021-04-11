@@ -88,6 +88,10 @@ void Heap::findElement(int data){
 }
 
 void Heap::printHeap(){
+    if(heap.getSize() == 0){
+        cout<<"Heap is empty"<<endl;
+        return;
+    }
     heap.print();
 }
 

@@ -169,7 +169,57 @@ void listTestMenu(){
 }
 
 void heapTestMenu(){
-    cout<<"heap";
+    do{
+        system("cls");
+        cout<<"___________TESTING HEAP___________"<<endl;
+        cout<<"[1] Add node to the heap"<<endl;
+        cout<<"[2] Delete root"<<endl;
+        cout<<"[3] Delete node with given data"<<endl;
+        cout<<"[4] Fill heap with random data"<<endl;
+        cout<<"[5] Fill heap with the data from file"<<endl;
+        cout<<"[6] Find node in heap"<<endl;
+        cout<<"[7] Print heap"<<endl;
+        cout<<"[8] Delete heap"<<endl;
+        cout<<"[9] Exit"<<endl;
+        cout<<"Enter your choice: ";
+        int choice;
+        cin>>choice;
+        
+        switch(choice){
+            case 1: 
+                heap.insert(insertData("data"));
+                break;
+            case 2: 
+                heap.extractMax();
+                break;
+            case 3: 
+                heap.deleteElement(insertData("data of the node to be deleted"));
+                break;
+            case 4: 
+                fillHeapRandomly(&heap);
+                break;
+            case 5: 
+                fillHeapFromFile(&heap);
+                break;
+            case 6: 
+                heap.findElement(insertData("data to find"));
+                break;
+            case 7: 
+                heap.printHeap();
+                break;
+            case 8: 
+                deleteHeap(&heap);
+                break;
+            case 9:
+                return;
+                break;
+            default:
+                cout<<endl<<"Wrong choice"<<endl;
+                break;
+        }
+        cout<<"Press any key to continue ";
+        getch();
+    }while(true);
 }
 
 void treeTestMenu(){
