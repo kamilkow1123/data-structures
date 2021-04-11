@@ -1,5 +1,7 @@
+#include<iostream>
 #include<fstream>
 #include "heap.cpp"
+using namespace std;
 
 void fillHeapRandomly(Heap *heap){
     if(heap->getSize() != 0){

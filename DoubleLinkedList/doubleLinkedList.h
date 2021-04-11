@@ -1,3 +1,6 @@
+#ifndef _DOUBLELINKEDLIST_H_
+#define _DOUBLELINKEDLIST_H_
+
 struct Node{
     int data;
     Node *prev;
@@ -31,3 +34,5 @@ public:
     Node *findNode(int data); //find node by its data
     bool isEmpty();
 };
+
+#endif

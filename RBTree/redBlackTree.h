@@ -1,4 +1,5 @@
-using namespace std;
+#ifndef _RBTREE_H_
+#define _RBTREE_H_
 
 enum Color{
     RED,
@@ -24,7 +25,7 @@ struct RBNode{
 class RBTree{
 private:
     RBNode *root;
-    string cr, cl, cp;
+    std::string cr, cl, cp;
 
 public:
     RBTree();
@@ -40,6 +41,8 @@ public:
     RBNode *search(int data);
     void fixDoubleBlack(RBNode *node);
     void print();
-    void printRB(string sp, string sn, RBNode *root);
+    void printRB(std::string sp, std::string sn, RBNode *root);
     void printInorder();
 };
+
+#endif

@@ -1,5 +1,7 @@
+#include<iostream>
 #include<fstream>
 #include "array.cpp"
+using namespace std;
 
 void fillArrayRandomly(Array *array){
     if(array->getSize() != 0){
@@ -27,6 +29,7 @@ void fillArrayFromFile(Array *array){
 
     fstream in;
     in.open("../data.txt", ios::in);
+    if(!in.good()) in.open("data.txt", ios::in);
 
     if(in.good()){
         int size, data;

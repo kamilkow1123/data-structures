@@ -1,3 +1,6 @@
+#ifndef _ARRAY_H_
+#define _ARRAY_H_
+ 
 class Array{
 private:
     int *array;
@@ -11,6 +14,8 @@ public:
     void pushOnIndex(int data, int index);
     void deleteElement(int data);
     void deleteElementByIndex(int index);
+    void popBack();
+    void popFront();
     int findIndex(int data);
     int findElement(int index);
     void print();
@@ -18,3 +23,5 @@ public:
     void setSize(int newSize);
     void swapElements(int index1, int index2);
 };
+
+#endif

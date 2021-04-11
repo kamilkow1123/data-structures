@@ -26,7 +26,10 @@ void Array::pushFront(int data) {
 }
 
 void Array::pushOnIndex(int data, int index) {
-    if(index<0 || index>size) return;
+    if(index<0 || index>size){
+        pushBack(data);
+        return;
+    } 
 
     size++;
     array = (int*)realloc(array, size*sizeof(int));
@@ -52,18 +55,6 @@ int Array::findElement(int index) {
     return array[index];
 }
 
-void Array::deleteElement(int data) {
-    int index = findIndex(data);
-
-    if(index == -1) return;
-
-    for(int i = index; i<size; i++){
-        array[i] = array[i+1];
-    }
-    size--;
-    array = (int*)realloc(array, size*sizeof(int));
-}
-
 void Array::deleteElementByIndex(int index) {
     if(index<0 || index>=size) return;
 
@@ -74,7 +65,24 @@ void Array::deleteElementByIndex(int index) {
     array = (int*)realloc(array, size*sizeof(int));
 }
 
+void Array::deleteElement(int data) {
+    int index = findIndex(data);
+    deleteElementByIndex(index);
+}
+
+void Array::popBack(){
+    deleteElementByIndex(size - 1);
+}
+
+void Array::popFront(){
+    deleteElementByIndex(0);
+}
+
 void Array::print() {
+    if(size == 0){
+        cout<<"Array is empty"<<endl;
+        return;
+    }
     for(int i = 0; i<size; i++){
         cout<<array[i]<<" ";
     }

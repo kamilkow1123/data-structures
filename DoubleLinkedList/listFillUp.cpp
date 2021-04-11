@@ -1,5 +1,7 @@
+#include<iostream>
 #include<fstream>
 #include "doubleLinkedList.cpp"
+using namespace std;
 
 void fillListRandomly(DoubleLinkedList *list){
     if(!list->isEmpty()){
@@ -46,13 +48,13 @@ void deleteList(DoubleLinkedList *list){
     *list = newList;
 }
 
-int main(){
-    DoubleLinkedList list = DoubleLinkedList();
+// int main(){
+//     DoubleLinkedList list = DoubleLinkedList();
 
-    // fillListRandomly(&list);
-    fillListFromFile(&list);
-    list.printList();
-    deleteList(&list);
+//     // fillListRandomly(&list);
+//     fillListFromFile(&list);
+//     list.printList();
+//     deleteList(&list);
 
-    return 0;
-}
+//     return 0;
+// }

@@ -1,4 +1,7 @@
-#include "../Array/array.cpp"
+#include "../Array/array.h"
+
+#ifndef _HEAP_H_
+#define _HEAP_H_
 
 class Heap
 {
@@ -19,3 +22,5 @@ public:
     void findElement(int data); //find element in the heap
     int getSize();
 };
+
+#endif

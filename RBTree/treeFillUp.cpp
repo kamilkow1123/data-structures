@@ -1,5 +1,7 @@
+#include<iostream>
 #include<fstream>
 #include "redBlackTree.cpp"
+using namespace std;
 
 void fillTreeRandomly(RBTree *tree){
     if(!tree->isEmpty()){
