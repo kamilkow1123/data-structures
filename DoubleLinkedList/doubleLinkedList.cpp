@@ -37,6 +37,33 @@ void DoubleLinkedList::push_front(int data) { //adding node at the beginning
     }
 }
 
+void DoubleLinkedList::push_after(Node *prevNode, int data) { //add node after specific node
+    if (prevNode == nullptr)
+    {
+        push_front(data);
+        return;
+    }
+
+    Node *newNode = new Node(data);
+
+    newNode->next = prevNode->next;
+    newNode->prev = prevNode;
+    prevNode->next = newNode;
+
+    if (newNode->next != nullptr)
+    {
+        newNode->next->prev = newNode;
+    }
+}
+
+void DoubleLinkedList::push_on_position(int data, int position){
+    Node *temp = head;
+    for(int i = 0; i<position; i++){
+        temp = temp->next;
+    }
+    push_after(temp, data);
+}
+
 void DoubleLinkedList::pop_node(Node *nodeToDelete){
     if(nodeToDelete == nullptr) return;
     if(nodeToDelete->prev) nodeToDelete->prev->next = nodeToDelete->next;
@@ -46,6 +73,14 @@ void DoubleLinkedList::pop_node(Node *nodeToDelete){
     else tail = nodeToDelete->prev;
 
     free(nodeToDelete);
+}
+
+void DoubleLinkedList::pop_on_position(int position){
+    Node *temp = head;
+    for(int i = 0; i<position; i++){
+        temp = temp->next;
+    }
+    pop_node(temp);
 }
 
 void DoubleLinkedList::pop_back() { //deleting node from the end
@@ -77,25 +112,6 @@ void DoubleLinkedList::printList() { //print all the nodes
         temp = temp->next;
     }
     cout<<endl;
-}
-
-void DoubleLinkedList::push_after(Node *prevNode, int data) { //add node after specific node
-    if (prevNode == nullptr)
-    {
-        push_front(data);
-        return;
-    }
-
-    Node *newNode = new Node(data);
-
-    newNode->next = prevNode->next;
-    newNode->prev = prevNode;
-    prevNode->next = newNode;
-
-    if (newNode->next != nullptr)
-    {
-        newNode->next->prev = newNode;
-    }
 }
 
 Node *DoubleLinkedList::findNode(int data) { //find the node by its data and return it

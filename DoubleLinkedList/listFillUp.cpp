@@ -49,13 +49,104 @@ void deleteList(DoubleLinkedList *list){
     *list = newList;
 }
 
-// int main(){
-//     DoubleLinkedList list = DoubleLinkedList();
+void fillList(DoubleLinkedList *list, int size){
+    if(!list->isEmpty()) deleteList(list);
 
-//     // fillListRandomly(&list);
-//     fillListFromFile(&list);
-//     list.printList();
-//     deleteList(&list);
+    int data;
 
-//     return 0;
-// }
+    for(int i = 0; i<size; i++){
+        data = rand()%numberRange;
+        list->push_back(data);
+    }
+}
+
+void listExperiment(DoubleLinkedList *list){
+    srand(time(NULL));
+    float time;
+    int size, data;
+
+    do{
+        cout<<"Enter the size of the list: ";
+        cin>>size;
+    }while(size<0 || size>300000);
+    
+
+    //Insert at the beginning
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        data = rand()%numberRange;
+        Timer timer;
+        list->push_front(data);
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Inserting element at the beginning of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    //Insert at the end
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        data = rand()%numberRange;
+        Timer timer;
+        list->push_back(data);
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Inserting element at the end of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    //Insert at random position
+    int position;
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        data = rand()%numberRange;
+        position = rand()%(size-1);
+        Timer timer;
+        list->push_on_position(data, position);
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Inserting element at the random position of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    //Delete from the beginning
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        Timer timer;
+        list->pop_front();
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Deleting element from the beginning of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    //Delete from the end
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        Timer timer;
+        list->pop_back();
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Deleting element from the end of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    //Delete from random position
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        position = rand()%(size-1);
+        Timer timer;
+        list->pop_on_position(position);
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Deleting element from the random position of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    //Finding element
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillList(list, size);
+        data = rand()%numberRange;
+        Timer timer;
+        list->findNode(data);
+        time += timer.getTime().count() * 1000.0f;
+    }
+    cout<<"Finding element in the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+
+    deleteList(list);
+}

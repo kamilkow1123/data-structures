@@ -328,7 +328,7 @@ void experimentMenu(){
             arrayExperiment(&arr);
             break;
         case 2: 
-            // listExperimentMenu(&list);//TODO in fillUp
+            listExperiment(&list);
             break;
         case 3: 
             // heapExperimentMenu(&heap);//TODO in fillUp

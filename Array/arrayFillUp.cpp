@@ -70,7 +70,7 @@ void arrayExperiment(Array *array){
     int size, data;
 
     do{
-        cout<<"Enter the size of the list: ";
+        cout<<"Enter the size of the array: ";
         cin>>size;
     }while(size<0 || size>300000);
     
