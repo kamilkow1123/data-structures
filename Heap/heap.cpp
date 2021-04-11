@@ -17,7 +17,6 @@ void Heap::insert(int data){
         heap.swapElements(i, parent(i)); //swaping the element and its parent if the properties of maxHeap are validated
         i = parent(i);
     }
-
 }
 
 int Heap::extractMax(){
@@ -75,16 +74,15 @@ void Heap::heapify(int i){
     }
 }
 
-void Heap::findElement(int data){
+bool Heap::findElement(int data){
     for(int i = 0; i < heap.getSize(); i++)
     {
         if(heap.findElement(i) == data)
         {
-            cout<<"Found "<<data<<" in the heap"<<endl;
-            return;
+            return true;
         }
     }
-    cout<<data<<" is not in the heap"<<endl;
+    return false;
 }
 
 void Heap::printHeap(){

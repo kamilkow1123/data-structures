@@ -202,7 +202,8 @@ void heapTestMenu(){
                 fillHeapFromFile(&heap);
                 break;
             case 6: 
-                heap.findElement(insertData("data to find"));
+                if(heap.findElement(insertData("data to find"))) cout<<"Found the node"<<endl;
+                else cout<<"There is no node with that data"<<endl;
                 break;
             case 7: 
                 heap.printHeap();
@@ -331,7 +332,7 @@ void experimentMenu(){
             listExperiment(&list);
             break;
         case 3: 
-            // heapExperimentMenu(&heap);//TODO in fillUp
+            heapExperiment(&heap);
             break;
         case 4: 
             // treeExperimentMenu(&tree);//TODO in fillUp

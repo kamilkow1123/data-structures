@@ -49,7 +49,7 @@ void deleteList(DoubleLinkedList *list){
     *list = newList;
 }
 
-void fillList(DoubleLinkedList *list, int size){
+void fillList(DoubleLinkedList *list, int size, int numberRange){
     if(!list->isEmpty()) deleteList(list);
 
     int data;
@@ -63,18 +63,28 @@ void fillList(DoubleLinkedList *list, int size){
 void listExperiment(DoubleLinkedList *list){
     srand(time(NULL));
     float time;
-    int size, data;
+    int size, numberOfMeasurements, numberRange, data;
 
     do{
         cout<<"Enter the size of the list: ";
         cin>>size;
     }while(size<0 || size>300000);
+
+    do{
+        cout<<"Enter the number of measurements: ";
+        cin>>numberOfMeasurements;
+    }while(numberOfMeasurements<0 || numberOfMeasurements>5000);
+
+    do{
+        cout<<"Enter the max value of elements: ";
+        cin>>numberRange;
+    }while(numberRange<0 || numberRange>300000);
     
 
     //Insert at the beginning
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
         list->push_front(data);
@@ -85,7 +95,7 @@ void listExperiment(DoubleLinkedList *list){
     //Insert at the end
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
         list->push_back(data);
@@ -97,7 +107,7 @@ void listExperiment(DoubleLinkedList *list){
     int position;
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         data = rand()%numberRange;
         position = rand()%(size-1);
         Timer timer;
@@ -109,7 +119,7 @@ void listExperiment(DoubleLinkedList *list){
     //Delete from the beginning
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         Timer timer;
         list->pop_front();
         time += timer.getTime().count() * 1000.0f;
@@ -119,7 +129,7 @@ void listExperiment(DoubleLinkedList *list){
     //Delete from the end
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         Timer timer;
         list->pop_back();
         time += timer.getTime().count() * 1000.0f;
@@ -129,7 +139,7 @@ void listExperiment(DoubleLinkedList *list){
     //Delete from random position
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         position = rand()%(size-1);
         Timer timer;
         list->pop_on_position(position);
@@ -140,7 +150,7 @@ void listExperiment(DoubleLinkedList *list){
     //Finding element
     time = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        fillList(list, size);
+        fillList(list, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
         list->findNode(data);
