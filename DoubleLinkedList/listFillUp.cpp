@@ -29,6 +29,7 @@ void fillListFromFile(DoubleLinkedList *list){
 
     fstream in;
     in.open("../data.txt", ios::in);
+    if(!in.good()) in.open("data.txt", ios::in);
 
     if(in.good()){
         int size, data;

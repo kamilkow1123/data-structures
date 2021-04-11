@@ -102,7 +102,70 @@ void arrayTestMenu(){
 }
 
 void listTestMenu(){
-    cout<<"list";
+    do{
+        system("cls");
+        cout<<"___________TESTING LIST___________"<<endl;
+        cout<<"[1] Add node at the beginning"<<endl;
+        cout<<"[2] Add node at the end"<<endl;
+        cout<<"[3] Add node after the given node"<<endl;
+        cout<<"[4] Delete node from the beginning"<<endl;
+        cout<<"[5] Delete node from the end"<<endl;
+        cout<<"[6] Delete node with given data"<<endl;
+        cout<<"[7] Fill list with random data"<<endl;
+        cout<<"[8] Fill list with the data from file"<<endl;
+        cout<<"[9] Find node in list"<<endl;
+        cout<<"[10] Print list"<<endl;
+        cout<<"[11] Delete list"<<endl;
+        cout<<"[12] Exit"<<endl;
+        cout<<"Enter your choice: ";
+        int choice;
+        cin>>choice;
+        
+        switch(choice){
+            case 1: 
+                list.push_front(insertData("data"));
+                break;
+            case 2: 
+                list.push_back(insertData("data"));
+                break;
+            case 3: 
+                list.push_after(list.findNode(insertData("data of the previous node")), insertData("data to insert"));
+                break;
+            case 4: 
+                list.pop_front();
+                break;
+            case 5: 
+                list.pop_back();
+                break;
+            case 6: 
+                list.pop_node(list.findNode(insertData("data of the node to be deleted")));
+                break;
+            case 7: 
+                fillListRandomly(&list);
+                break;
+            case 8: 
+                fillListFromFile(&list);
+                break;
+            case 9: 
+                if(list.findNode(insertData("data to find")) != nullptr) cout<<"Found the node"<<endl;
+                else cout<<"There is no node with that data"<<endl;
+                break;
+            case 10: 
+                list.printList();
+                break;
+            case 11: 
+                deleteList(&list);
+                break;
+            case 12:
+                return;
+                break;
+            default:
+                cout<<endl<<"Wrong choice"<<endl;
+                break;
+        }
+        cout<<"Press any key to continue ";
+        getch();
+    }while(true);
 }
 
 void heapTestMenu(){
