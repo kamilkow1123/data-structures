@@ -341,16 +341,16 @@ void RBTree::fixDoubleBlack(RBNode *node) {
 
 RBNode *RBTree::search(int data) {
     RBNode *temp = root;
-    while (temp != NULL) {
+    while (temp != nullptr) {
       if (data < temp->data) {
-        if (temp->left == NULL)
+        if (temp->left == nullptr)
           break;
         else
           temp = temp->left;
       } else if (data == temp->data) {
         break;
       } else {
-        if (temp->right == NULL)
+        if (temp->right == nullptr)
           break;
         else
           temp = temp->right;
@@ -384,10 +384,19 @@ void inorderHelper(RBNode *root){
 }
 
 void RBTree::printInorder(){
+    if(isEmpty()){
+        cout<<"Tree is empty"<<endl;
+        return;
+    }
     inorderHelper(root);
+    cout<<endl;
 }
 
 void RBTree::print(){
+    if(isEmpty()){
+        cout<<"Tree is empty"<<endl;
+        return;
+    }
     cout<<endl;
     printRB("","",root);
     cout<<endl;

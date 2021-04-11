@@ -223,7 +223,58 @@ void heapTestMenu(){
 }
 
 void treeTestMenu(){
-    cout<<"tree";
+    do{
+        system("cls");
+        cout<<"_________TESTING RED BLACK TREE_________"<<endl;
+        cout<<"[1] Add node to the tree"<<endl;
+        cout<<"[2] Delete node with given data"<<endl;
+        cout<<"[3] Fill tree with random data"<<endl;
+        cout<<"[4] Fill tree with the data from file"<<endl;
+        cout<<"[5] Find node in tree"<<endl;
+        cout<<"[6] Print tree"<<endl;
+        cout<<"[7] Print tree in order"<<endl;
+        cout<<"[8] Delete tree"<<endl;
+        cout<<"[9] Exit"<<endl;
+        cout<<"Enter your choice: ";
+        int choice;
+        cin>>choice;
+        
+        switch(choice){
+            case 1: 
+                tree.insertElement(insertData("data"));
+                break;
+            case 2: 
+                tree.deleteByData(insertData("data of the node to be deleted"));
+                break;
+            case 3: 
+                fillTreeRandomly(&tree);
+                break;
+            case 4: 
+                fillTreeFromFile(&tree);
+                break;
+            case 5: 
+                if(tree.search(insertData("data to find")) != nullptr) cout<<"Found the node"<<endl;
+                else cout<<"There is no node with that data"<<endl;
+                break;
+            case 6: 
+                tree.print();
+                break;
+            case 7: 
+                tree.printInorder();
+                break;
+            case 8: 
+                deleteTree(&tree);
+                break;
+            case 9:
+                return;
+                break;
+            default:
+                cout<<endl<<"Wrong choice"<<endl;
+                break;
+        }
+        cout<<"Press any key to continue ";
+        getch();
+    }while(true);
 }
 
 void testMenu(){

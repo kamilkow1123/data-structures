@@ -29,6 +29,7 @@ void fillTreeFromFile(RBTree *tree){
 
     fstream in;
     in.open("../data.txt", ios::in);
+    if(!in.good()) in.open("data.txt", ios::in);
 
     if(in.good()){
         int size, data;
@@ -44,7 +45,9 @@ void fillTreeFromFile(RBTree *tree){
 }
 
 void deleteTree(RBTree *tree){
-    tree->deleteTree(tree->getRoot());
+    // tree->deleteTree(tree->getRoot());
+    RBTree newTree = RBTree();
+    *tree = newTree;
 }
 
 // int main(){
