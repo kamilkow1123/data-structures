@@ -4,10 +4,6 @@
 #include "../DoubleLinkedList/listFillUp.cpp"
 #include "../Heap/heapFillUp.cpp"
 #include "../RBTree/treeFillUp.cpp"
-// #include "../Array/array.h"
-// #include "../DoubleLinkedList/doubleLinkedList.h"
-// #include "../Heap/heap.h"
-// #include "../RBTree/redBlackTree.h"
 
 using namespace std;
 
@@ -335,7 +331,7 @@ void experimentMenu(){
             heapExperiment(&heap);
             break;
         case 4: 
-            // treeExperimentMenu(&tree);//TODO in fillUp
+            treeExperiment(&tree);
             break;
         case 5:
             return;

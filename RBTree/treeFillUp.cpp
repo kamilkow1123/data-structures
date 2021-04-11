@@ -50,14 +50,70 @@ void deleteTree(RBTree *tree){
     *tree = newTree;
 }
 
-// int main(){
-//     RBTree tree = RBTree();
+void fillTree(RBTree *tree, int size, int numberRange){
+    if(!tree->isEmpty()) deleteTree(tree);
 
-//     fillTreeRandomly(&tree);
-//     // fillTreeFromFile(&tree);
+    int data;
 
-//     tree.printInorder();
-//     deleteTree(&tree);
+    for(int i = 0; i<size; i++){
+        data = rand()%numberRange;
+        tree->insertElement(data);
+    }
+}
 
-//     return 0;
-// }
+void treeExperiment(RBTree *tree){
+    srand(time(NULL));
+    float time;
+    int size, numberOfMeasurements, numberRange, data;
+
+    do{
+        cout<<"Enter the size of the tree: ";
+        cin>>size;
+    }while(size<0 || size>300000);
+
+    do{
+        cout<<"Enter the number of measurements: ";
+        cin>>numberOfMeasurements;
+    }while(numberOfMeasurements<0 || numberOfMeasurements>5000);
+
+    do{
+        cout<<"Enter the max value of elements: ";
+        cin>>numberRange;
+    }while(numberRange<0 || numberRange>300000);
+    
+
+    //Insert element
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillTree(tree, size, numberRange);
+        data = rand()%numberRange;
+        Timer timer;
+        tree->insertElement(data);
+        time += timer.getTime().count() * 1000000000.0f;
+    }
+    cout<<"Inserting element into the red black tree took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
+
+    //Delete element
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillTree(tree, size, numberRange);
+        data = rand()%numberRange;
+        Timer timer;
+        tree->deleteByData(data);
+        time += timer.getTime().count() * 1000000000.0f;
+    }
+    cout<<"Deleting random element in red black tree took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
+
+    //Finding element
+    time = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        fillTree(tree, size, numberRange);
+        data = rand()%numberRange;
+        Timer timer;
+        tree->search(data);
+        time += timer.getTime().count() * 1000000000.0f;
+    }
+    cout<<"Finding element in the red black tree took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
+
+    deleteTree(tree);
+}

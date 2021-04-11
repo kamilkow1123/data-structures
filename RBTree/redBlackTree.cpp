@@ -367,7 +367,6 @@ void RBTree::deleteByData(int data) {
     RBNode *node = search(data);
  
     if (node->data != data) {
-        cout << "There is no node with data: " << data << endl;
         return;
     }
 
