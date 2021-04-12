@@ -24,6 +24,7 @@ private:
 
 public:
     DoubleLinkedList();
+    ~DoubleLinkedList();
     void push_back(int data);
     void push_front(int data);
     void push_after(Node *prevNode, int data);

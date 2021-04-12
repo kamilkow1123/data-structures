@@ -3,8 +3,8 @@
 #include "redBlackTree.cpp"
 using namespace std;
 
-void fillTreeRandomly(RBTree *tree){
-    if(!tree->isEmpty()){
+void fillTreeRandomly(RBTree **tree){
+    if(!(*tree)->isEmpty()){
         cout<<"There is data in a tree"<<endl;
         return;
     }
@@ -17,12 +17,12 @@ void fillTreeRandomly(RBTree *tree){
 
     for(int i = 0; i<size; i++){
         data = rand()%500;
-        tree->insertElement(data);
+        (*tree)->insertElement(data);
     }
 }
 
-void fillTreeFromFile(RBTree *tree){
-    if(!tree->isEmpty()){
+void fillTreeFromFile(RBTree **tree){
+    if(!(*tree)->isEmpty()){
         cout<<"There is data in a tree"<<endl;
         return;
     }
@@ -36,7 +36,7 @@ void fillTreeFromFile(RBTree *tree){
         in>>size;
         while(!in.eof()){
             in>>data;
-            tree->insertElement(data);
+            (*tree)->insertElement(data);
         }
         in.close();
     }
@@ -44,24 +44,23 @@ void fillTreeFromFile(RBTree *tree){
         cout<<"Cannot open data.txt"<<endl;
 }
 
-void deleteTree(RBTree *tree){
-    // tree->deleteTree(tree->getRoot());
-    RBTree newTree = RBTree();
-    *tree = newTree;
+void deleteTree(RBTree **tree){
+    delete *tree;
+    *tree = new RBTree();
 }
 
-void fillTree(RBTree *tree, int size, int numberRange){
-    if(!tree->isEmpty()) deleteTree(tree);
+void fillTree(RBTree **tree, int size, int numberRange){
+    if(!(*tree)->isEmpty()) deleteTree(tree);
 
     int data;
 
     for(int i = 0; i<size; i++){
         data = rand()%numberRange;
-        tree->insertElement(data);
+        (*tree)->insertElement(data);
     }
 }
 
-void treeExperiment(RBTree *tree){
+void treeExperiment(RBTree **tree){
     srand(time(NULL));
     float time;
     int size, numberOfMeasurements, numberRange, data;
@@ -88,7 +87,7 @@ void treeExperiment(RBTree *tree){
         fillTree(tree, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        tree->insertElement(data);
+        (*tree)->insertElement(data);
         time += timer.getTime().count() * 1000000000.0f;
     }
     cout<<"Inserting element into the red black tree took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
@@ -99,7 +98,7 @@ void treeExperiment(RBTree *tree){
         fillTree(tree, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        tree->deleteByData(data);
+        (*tree)->deleteByData(data);
         time += timer.getTime().count() * 1000000000.0f;
     }
     cout<<"Deleting random element in red black tree took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
@@ -110,7 +109,7 @@ void treeExperiment(RBTree *tree){
         fillTree(tree, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        tree->search(data);
+        (*tree)->search(data);
         time += timer.getTime().count() * 1000000000.0f;
     }
     cout<<"Finding element in the red black tree took on average: "<<time/numberOfMeasurements<<"ns"<<endl;

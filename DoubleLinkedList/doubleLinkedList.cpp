@@ -7,6 +7,10 @@ DoubleLinkedList::DoubleLinkedList() {
     this->tail = nullptr;
 }
 
+DoubleLinkedList::~DoubleLinkedList() {
+    while(head!=nullptr) pop_front();
+}
+
 void DoubleLinkedList::push_back(int data) { //adding node at the end
     Node *newNode = new Node(data);
 

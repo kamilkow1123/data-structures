@@ -13,7 +13,9 @@ RBTree::RBTree(){
     cp[0] = 179;
 }
 
-RBTree::~RBTree(){}
+RBTree::~RBTree(){
+    deleteTree(root);
+}
 
 RBNode *RBTree::getRoot()
 {

@@ -6,7 +6,7 @@
 class Heap
 {
 private:
-    Array heap = Array(); // array to store elements
+    Array *heap = new Array(); // array to store elements
 
     int parent(int i) { return (i-1)/2; }; //returns the parent index
     int left(int i) { return 2*i+1; }; //returns the left child index
@@ -14,6 +14,7 @@ private:
 
 public:
     Heap(); //constructor
+    ~Heap(); //destructor
     void insert(int data); //insert key into the heap
     int extractMax(); //delete the max element - root
     void deleteElement(int data); //delete element by data

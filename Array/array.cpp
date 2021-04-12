@@ -8,7 +8,9 @@ Array::Array() {
     this->size = 0;
 }
 
-Array::~Array() = default;
+Array::~Array(){
+    delete [] array;
+};
 
 void Array::pushBack(int data) {
     size++;

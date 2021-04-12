@@ -3,8 +3,8 @@
 #include "doubleLinkedList.cpp"
 using namespace std;
 
-void fillListRandomly(DoubleLinkedList *list){
-    if(!list->isEmpty()){
+void fillListRandomly(DoubleLinkedList **list){
+    if(!(*list)->isEmpty()){
         cout<<"There is data in list"<<endl;
         return;
     }
@@ -17,12 +17,12 @@ void fillListRandomly(DoubleLinkedList *list){
 
     for(int i = 0; i<size; i++){
         data = rand()%500;
-        list->push_back(data);
+        (*list)->push_back(data);
     }
 }
 
-void fillListFromFile(DoubleLinkedList *list){
-    if(!list->isEmpty()){
+void fillListFromFile(DoubleLinkedList **list){
+    if(!(*list)->isEmpty()){
         cout<<"There is data in list"<<endl;
         return;
     }
@@ -36,7 +36,7 @@ void fillListFromFile(DoubleLinkedList *list){
         in>>size;
         while(!in.eof()){
             in>>data;
-            list->push_back(data);
+            (*list)->push_back(data);
         }
         in.close();
     }
@@ -44,23 +44,23 @@ void fillListFromFile(DoubleLinkedList *list){
         cout<<"Cannot open data.txt"<<endl;
 }
 
-void deleteList(DoubleLinkedList *list){
-    DoubleLinkedList newList = DoubleLinkedList();
-    *list = newList;
+void deleteList(DoubleLinkedList **list){
+    delete *list;
+    *list = new DoubleLinkedList();
 }
 
-void fillList(DoubleLinkedList *list, int size, int numberRange){
-    if(!list->isEmpty()) deleteList(list);
+void fillList(DoubleLinkedList **list, int size, int numberRange){
+    if(!(*list)->isEmpty()) deleteList(list);
 
     int data;
 
     for(int i = 0; i<size; i++){
         data = rand()%numberRange;
-        list->push_back(data);
+        (*list)->push_back(data);
     }
 }
 
-void listExperiment(DoubleLinkedList *list){
+void listExperiment(DoubleLinkedList **list){
     srand(time(NULL));
     float time;
     int size, numberOfMeasurements, numberRange, data;
@@ -87,7 +87,7 @@ void listExperiment(DoubleLinkedList *list){
         fillList(list, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        list->push_front(data);
+        (*list)->push_front(data);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Inserting element at the beginning of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -98,7 +98,7 @@ void listExperiment(DoubleLinkedList *list){
         fillList(list, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        list->push_back(data);
+        (*list)->push_back(data);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Inserting element at the end of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -111,7 +111,7 @@ void listExperiment(DoubleLinkedList *list){
         data = rand()%numberRange;
         position = rand()%(size-1);
         Timer timer;
-        list->push_on_position(data, position);
+        (*list)->push_on_position(data, position);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Inserting element at the random position of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -121,7 +121,7 @@ void listExperiment(DoubleLinkedList *list){
     for(int i = 0; i<numberOfMeasurements; i++){
         fillList(list, size, numberRange);
         Timer timer;
-        list->pop_front();
+        (*list)->pop_front();
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Deleting element from the beginning of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -131,7 +131,7 @@ void listExperiment(DoubleLinkedList *list){
     for(int i = 0; i<numberOfMeasurements; i++){
         fillList(list, size, numberRange);
         Timer timer;
-        list->pop_back();
+        (*list)->pop_back();
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Deleting element from the end of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -142,7 +142,7 @@ void listExperiment(DoubleLinkedList *list){
         fillList(list, size, numberRange);
         position = rand()%(size-1);
         Timer timer;
-        list->pop_on_position(position);
+        (*list)->pop_on_position(position);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Deleting element from the random position of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -153,7 +153,7 @@ void listExperiment(DoubleLinkedList *list){
         fillList(list, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        list->findNode(data);
+        (*list)->findNode(data);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Finding element in the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;

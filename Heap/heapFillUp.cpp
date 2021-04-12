@@ -3,8 +3,8 @@
 #include "heap.cpp"
 using namespace std;
 
-void fillHeapRandomly(Heap *heap){
-    if(heap->getSize() != 0){
+void fillHeapRandomly(Heap **heap){
+    if((*heap)->getSize() != 0){
         cout<<"There is data in heap"<<endl;
         return;
     }
@@ -17,12 +17,12 @@ void fillHeapRandomly(Heap *heap){
 
     for(int i = 0; i<size; i++){
         data = rand()%500;
-        heap->insert(data);
+        (*heap)->insert(data);
     }
 }
 
-void fillHeapFromFile(Heap *heap){
-    if(heap->getSize() != 0){
+void fillHeapFromFile(Heap **heap){
+    if((*heap)->getSize() != 0){
         cout<<"There is data in heap"<<endl;
         return;
     }
@@ -36,7 +36,7 @@ void fillHeapFromFile(Heap *heap){
         in>>size;
         while(!in.eof()){
             in>>data;
-            heap->insert(data);
+            (*heap)->insert(data);
         }
         in.close();
     }
@@ -44,23 +44,23 @@ void fillHeapFromFile(Heap *heap){
         cout<<"Cannot open data.txt"<<endl;
 }
 
-void deleteHeap(Heap *heap){
-    Heap newHeap = Heap();
-    *heap = newHeap;
+void deleteHeap(Heap **heap){
+    delete *heap;
+    *heap = new Heap();
 }
 
-void fillHeap(Heap *heap, int size, int numberRange){
-    if(heap->getSize() != 0) deleteHeap(heap);
+void fillHeap(Heap **heap, int size, int numberRange){
+    if((*heap)->getSize() != 0) deleteHeap(heap);
 
     int data;
 
     for(int i = 0; i<size; i++){
         data = rand()%numberRange;
-        heap->insert(data);
+        (*heap)->insert(data);
     }
 }
 
-void heapExperiment(Heap *heap){
+void heapExperiment(Heap **heap){
     srand(time(NULL));
     float time;
     int size, numberOfMeasurements, numberRange, data;
@@ -87,7 +87,7 @@ void heapExperiment(Heap *heap){
         fillHeap(heap, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        heap->insert(data);
+        (*heap)->insert(data);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Inserting element into the heap took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -97,7 +97,7 @@ void heapExperiment(Heap *heap){
     for(int i = 0; i<numberOfMeasurements; i++){
         fillHeap(heap, size, numberRange);
         Timer timer;
-        heap->extractMax();
+        (*heap)->extractMax();
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Deleting the root from the heap took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -108,7 +108,7 @@ void heapExperiment(Heap *heap){
         fillHeap(heap, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        heap->deleteElement(data);
+        (*heap)->deleteElement(data);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Deleting random element in heap took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
@@ -119,7 +119,7 @@ void heapExperiment(Heap *heap){
         fillHeap(heap, size, numberRange);
         data = rand()%numberRange;
         Timer timer;
-        heap->findElement(data);
+        (*heap)->findElement(data);
         time += timer.getTime().count() * 1000.0f;
     }
     cout<<"Finding element in the heap took on average: "<<time/numberOfMeasurements<<"ms"<<endl;

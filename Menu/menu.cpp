@@ -8,10 +8,10 @@
 using namespace std;
 
 //Structures declaration
-Array arr = Array();
-DoubleLinkedList list = DoubleLinkedList();
-Heap heap = Heap();
-RBTree tree = RBTree();
+Array *arr = new Array();
+DoubleLinkedList *list = new DoubleLinkedList();
+Heap *heap = new Heap();
+RBTree *tree = new RBTree();
 
 int insertData(string text)
 {
@@ -50,22 +50,22 @@ void arrayTestMenu(){
         
         switch(choice){
             case 1: 
-                arr.pushFront(insertData("data"));
+                arr->pushFront(insertData("data"));
                 break;
             case 2: 
-                arr.pushBack(insertData("data"));
+                arr->pushBack(insertData("data"));
                 break;
             case 3: 
-                arr.pushOnIndex(insertData("data"), insertData("index"));
+                arr->pushOnIndex(insertData("data"), insertData("index"));
                 break;
             case 4: 
-                arr.popFront();
+                arr->popFront();
                 break;
             case 5: 
-                arr.popBack();
+                arr->popBack();
                 break;
             case 6: 
-                arr.deleteElementByIndex(insertData("index"));
+                arr->deleteElementByIndex(insertData("index"));
                 break;
             case 7: 
                 fillArrayRandomly(&arr);
@@ -74,12 +74,12 @@ void arrayTestMenu(){
                 fillArrayFromFile(&arr);
                 break;
             case 9: 
-                index = arr.findIndex(insertData("data to find"));
+                index = arr->findIndex(insertData("data to find"));
                 if(index != -1) cout<<"Found element at index "<<index<<endl;
                 else cout<<"Inserted data is not in the array"<<endl;
                 break;
             case 10: 
-                arr.print();
+                arr->print();
                 break;
             case 11: 
                 deleteArray(&arr);
@@ -119,22 +119,22 @@ void listTestMenu(){
         
         switch(choice){
             case 1: 
-                list.push_front(insertData("data"));
+                list->push_front(insertData("data"));
                 break;
             case 2: 
-                list.push_back(insertData("data"));
+                list->push_back(insertData("data"));
                 break;
             case 3: 
-                list.push_after(list.findNode(insertData("data of the previous node")), insertData("data to insert"));
+                list->push_after(list->findNode(insertData("data of the previous node")), insertData("data to insert"));
                 break;
             case 4: 
-                list.pop_front();
+                list->pop_front();
                 break;
             case 5: 
-                list.pop_back();
+                list->pop_back();
                 break;
             case 6: 
-                list.pop_node(list.findNode(insertData("data of the node to be deleted")));
+                list->pop_node(list->findNode(insertData("data of the node to be deleted")));
                 break;
             case 7: 
                 fillListRandomly(&list);
@@ -143,11 +143,11 @@ void listTestMenu(){
                 fillListFromFile(&list);
                 break;
             case 9: 
-                if(list.findNode(insertData("data to find")) != nullptr) cout<<"Found the node"<<endl;
+                if(list->findNode(insertData("data to find")) != nullptr) cout<<"Found the node"<<endl;
                 else cout<<"There is no node with that data"<<endl;
                 break;
             case 10: 
-                list.printList();
+                list->printList();
                 break;
             case 11: 
                 deleteList(&list);
@@ -183,13 +183,13 @@ void heapTestMenu(){
         
         switch(choice){
             case 1: 
-                heap.insert(insertData("data"));
+                heap->insert(insertData("data"));
                 break;
             case 2: 
-                heap.extractMax();
+                heap->extractMax();
                 break;
             case 3: 
-                heap.deleteElement(insertData("data of the node to be deleted"));
+                heap->deleteElement(insertData("data of the node to be deleted"));
                 break;
             case 4: 
                 fillHeapRandomly(&heap);
@@ -198,11 +198,11 @@ void heapTestMenu(){
                 fillHeapFromFile(&heap);
                 break;
             case 6: 
-                if(heap.findElement(insertData("data to find"))) cout<<"Found the node"<<endl;
+                if(heap->findElement(insertData("data to find"))) cout<<"Found the node"<<endl;
                 else cout<<"There is no node with that data"<<endl;
                 break;
             case 7: 
-                heap.printHeap();
+                heap->printHeap();
                 break;
             case 8: 
                 deleteHeap(&heap);
@@ -238,10 +238,10 @@ void treeTestMenu(){
         
         switch(choice){
             case 1: 
-                tree.insertElement(insertData("data"));
+                tree->insertElement(insertData("data"));
                 break;
             case 2: 
-                tree.deleteByData(insertData("data of the node to be deleted"));
+                tree->deleteByData(insertData("data of the node to be deleted"));
                 break;
             case 3: 
                 fillTreeRandomly(&tree);
@@ -250,14 +250,14 @@ void treeTestMenu(){
                 fillTreeFromFile(&tree);
                 break;
             case 5: 
-                if(tree.search(insertData("data to find")) != nullptr) cout<<"Found the node"<<endl;
+                if(tree->search(insertData("data to find")) != nullptr) cout<<"Found the node"<<endl;
                 else cout<<"There is no node with that data"<<endl;
                 break;
             case 6: 
-                tree.print();
+                tree->print();
                 break;
             case 7: 
-                tree.printInorder();
+                tree->printInorder();
                 break;
             case 8: 
                 deleteTree(&tree);
