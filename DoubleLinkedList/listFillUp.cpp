@@ -88,9 +88,9 @@ void listExperiment(DoubleLinkedList **list){
         data = rand()%numberRange;
         Timer timer;
         (*list)->push_front(data);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Inserting element at the beginning of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Inserting element at the beginning of the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Insert at the end
     time = 0;
@@ -99,9 +99,9 @@ void listExperiment(DoubleLinkedList **list){
         data = rand()%numberRange;
         Timer timer;
         (*list)->push_back(data);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Inserting element at the end of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Inserting element at the end of the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Insert at random position
     int position;
@@ -112,9 +112,9 @@ void listExperiment(DoubleLinkedList **list){
         position = rand()%(size-1);
         Timer timer;
         (*list)->push_on_position(data, position);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Inserting element at the random position of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Inserting element at the random position of the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Delete from the beginning
     time = 0;
@@ -122,9 +122,9 @@ void listExperiment(DoubleLinkedList **list){
         fillList(list, size, numberRange);
         Timer timer;
         (*list)->pop_front();
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Deleting element from the beginning of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Deleting element from the beginning of the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Delete from the end
     time = 0;
@@ -132,9 +132,9 @@ void listExperiment(DoubleLinkedList **list){
         fillList(list, size, numberRange);
         Timer timer;
         (*list)->pop_back();
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Deleting element from the end of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Deleting element from the end of the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Delete from random position
     time = 0;
@@ -143,9 +143,9 @@ void listExperiment(DoubleLinkedList **list){
         position = rand()%(size-1);
         Timer timer;
         (*list)->pop_on_position(position);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Deleting element from the random position of the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Deleting element from the random position of the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Finding element
     time = 0;
@@ -154,9 +154,9 @@ void listExperiment(DoubleLinkedList **list){
         data = rand()%numberRange;
         Timer timer;
         (*list)->findNode(data);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Finding element in the list took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Finding element in the list took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     deleteList(list);
 }

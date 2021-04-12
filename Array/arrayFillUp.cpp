@@ -89,9 +89,9 @@ void arrayExperiment(Array **array){
         data = rand()%numberRange;
         Timer timer;
         (*array)->pushFront(data);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Inserting element at the beginning of the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Inserting element at the beginning of the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Insert at the end
     time = 0;
@@ -100,9 +100,9 @@ void arrayExperiment(Array **array){
         data = rand()%numberRange;
         Timer timer;
         (*array)->pushBack(data);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Inserting element at the end of the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Inserting element at the end of the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Insert at random position
     int index;
@@ -113,9 +113,9 @@ void arrayExperiment(Array **array){
         index = rand()%(size-1);
         Timer timer;
         (*array)->pushOnIndex(data, index);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Inserting element at the random index of the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Inserting element at the random index of the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Delete from the beginning
     time = 0;
@@ -123,9 +123,9 @@ void arrayExperiment(Array **array){
         fillArray(array, size, numberRange);
         Timer timer;
         (*array)->popFront();
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Deleting element from the beginning of the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Deleting element from the beginning of the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Delete from the end
     time = 0;
@@ -133,9 +133,9 @@ void arrayExperiment(Array **array){
         fillArray(array, size, numberRange);
         Timer timer;
         (*array)->popBack();
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Deleting element from the end of the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Deleting element from the end of the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Delete from random position
     time = 0;
@@ -144,9 +144,9 @@ void arrayExperiment(Array **array){
         index = rand()%(size-1);
         Timer timer;
         (*array)->deleteElementByIndex(index);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Deleting element from the random index of the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Deleting element from the random index of the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     //Finding element
     time = 0;
@@ -155,9 +155,9 @@ void arrayExperiment(Array **array){
         data = rand()%numberRange;
         Timer timer;
         (*array)->findIndex(data);
-        time += timer.getTime().count() * 1000.0f;
+        time += timer.getTime().count() * 1000000000.0f;
     }
-    cout<<"Finding element in the array took on average: "<<time/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Finding element in the array took on average: "<<time/numberOfMeasurements<<"ns"<<endl;
 
     deleteArray(array);
 }
