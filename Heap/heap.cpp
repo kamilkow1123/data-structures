@@ -96,23 +96,3 @@ void Heap::printHeap(){
     }
     heap->print();
 }
-
-// int main(){
-//     Heap heap = Heap();
-
-//     heap.insert(83);
-//     heap.insert(77);
-//     heap.insert(65);
-//     heap.insert(93);
-//     heap.insert(92);
-//     heap.insert(90);
-//     heap.insert(86);
-
-//     heap.printHeap();
-//     heap.deleteElement(90);
-//     // heap.extractMax();
-//     // heap.printHeap();
-//     // heap.findElement(866);
-//     heap.printHeap();
-//     return 0;
-// }

@@ -341,20 +341,14 @@ void RBTree::fixDoubleBlack(RBNode *node) {
     }
 }
 
-RBNode *RBTree::search(int data) {
+RBNode *RBTree::search(int data) { 
     RBNode *temp = root;
     while (temp != nullptr) {
       if (data < temp->data) {
-        if (temp->left == nullptr)
-          break;
-        else
           temp = temp->left;
       } else if (data == temp->data) {
         break;
       } else {
-        if (temp->right == nullptr)
-          break;
-        else
           temp = temp->right;
       }
     }
@@ -420,23 +414,3 @@ void RBTree::printRB(string sp, string sn, RBNode * root){ //PRINTING RBT as a t
         printRB ( s + cp, cl, root->left );
     }
 }
-
-// int main(){
-//     RBTree tree = RBTree();
-
-//     tree.insertElement(11);
-//     tree.insertElement(2);
-//     tree.insertElement(14);
-//     tree.insertElement(1);
-//     tree.insertElement(15);
-//     // tree.insertElement(7);
-//     // tree.insertElement(5);
-//     // tree.insertElement(8);
-//     // tree.insertElement(4);
-//     tree.print();
-//     tree.deleteByData(15);
-//     tree.deleteByData(14);
-//     tree.print();
-
-//     return 0;
-// }

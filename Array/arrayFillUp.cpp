@@ -69,17 +69,17 @@ void arrayExperiment(Array **array){
     do{
         cout<<"Enter the size of the array: ";
         cin>>size;
-    }while(size<0 || size>300000);
+    }while(size<0 || size>1000000);
 
     do{
         cout<<"Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>5000);
+    }while(numberOfMeasurements<0 || numberOfMeasurements>10000);
 
     do{
         cout<<"Enter the max value of elements: ";
         cin>>numberRange;
-    }while(numberRange<0 || numberRange>300000);
+    }while(numberRange<0 || numberRange>500000);
     
 
     //Insert at the beginning

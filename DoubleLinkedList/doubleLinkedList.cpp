@@ -133,29 +133,3 @@ Node *DoubleLinkedList::findNode(int data) { //find the node by its data and ret
 bool DoubleLinkedList::isEmpty(){
     return head == nullptr;
 }
-
-// int main() {
-//     DoubleLinkedList list = DoubleLinkedList();
-
-//     list.push_back(5);
-//     list.push_back(8);
-//     list.push_back(4);
-//     list.push_front(2);
-//     list.push_front(3);
-//     list.push_front(1);
-//     list.push_after(list.findNode(44),17);
-
-//     list.printList();
-//     // list.pop_node(list.findNode(17));
-//     // list.pop_node(list.findNode(45));
-//     list.pop_back();
-//     list.pop_front();
-//     list.pop_front();
-//     list.pop_front();
-//     list.pop_back();
-//     list.pop_back();
-//     list.pop_back();
-
-//     list.printList();
-//     return 0;
-// }

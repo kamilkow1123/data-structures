@@ -102,25 +102,3 @@ void Array::setSize(int newSize){
 void Array::swapElements(int index1, int index2){
     swap(array[index1], array[index2]);
 }
-
-// int main() {
-//     Array ar = Array();
-//     ar.pushBack(1);
-//     ar.pushBack(2);
-//     ar.pushBack(3);
-//     ar.pushBack(4);
-//     ar.pushFront(5);
-//     ar.pushFront(6);
-//     ar.pushFront(7);
-//     ar.pushOnIndex(10, 6);
-
-//     ar.print();
-
-//     // ar.deleteElement(4);
-
-//     // ar.print();
-//     // cout<<ar.findElement(4)<<endl;
-//     // cout<<ar.findIndex(6);
-
-//     return 0;
-// }
